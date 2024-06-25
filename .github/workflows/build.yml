@@ -29,7 +29,8 @@ jobs:
         {
         "TOKEN": "${{ secrets.TOKEN }}",
         "CLIENT_ID": "${{ secrets.CLIENT_ID }}",
-        "ADMIN_ROLE_ID": "${{ secrets.ADMIN_ROLE_ID }}"
+        "ADMIN_ROLE_ID": "${{ secrets.ADMIN_ROLE_ID }}",
+        "RECRUITS_CATEGORY_ID": "${{ secrets.RECRUITS_CATEGORY_ID }}"
         }
         EOF
         else

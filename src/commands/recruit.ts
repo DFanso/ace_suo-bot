@@ -50,6 +50,16 @@ module.exports = {
         return;
       }
 
+      const existingChannel = interaction.guild.channels.cache.find(channel => 
+        channel.name === `recruit-${userToRecruit.user.username}` && 
+        channel.parentId === category.id
+      );
+
+      if (existingChannel) {
+        await interaction.reply({ content: 'A recruitment channel for this user already exists.', ephemeral: true });
+        return;
+      }
+
       const channel = await interaction.guild.channels.create({
         name: `recruit-${userToRecruit.user.username}`,
         type: ChannelType.GuildText,
