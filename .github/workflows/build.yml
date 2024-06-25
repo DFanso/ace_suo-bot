@@ -28,7 +28,7 @@ jobs:
           cat <<EOF > src/config.json
         {
         "TOKEN": "${{ secrets.TOKEN }}",
-        "CLIENT_ID": "${{ secrets.CLIENT_ID }}"
+        "CLIENT_ID": "${{ secrets.CLIENT_ID }}",
         "ADMIN_ROLE_ID": "${{ secrets.ADMIN_ROLE_ID }}"
         }
         EOF
