@@ -20,7 +20,7 @@ module.exports = {
     }
 
     const member = interaction.member as GuildMember;
-    const mentionedUser = interaction.options.get('user')?.user; // Correctly get the user option
+    const mentionedUser = interaction.options.get('user')?.user;
     const isAdmin = member.roles.cache.has(ADMIN_ROLE_ID);
 
     let userToRecruit: GuildMember;
@@ -36,19 +36,16 @@ module.exports = {
     }
 
     try {
-      // Create a new role for the recruited user
       const role = await interaction.guild.roles.create({
         name: `Recruit-${userToRecruit.user.username}`,
         reason: 'Recruitment channel access',
       });
 
-      // Assign the role to the recruited user
       await userToRecruit.roles.add(role);
 
-      // Create a new private channel
       const channel = await interaction.guild.channels.create({
         name: `recruit-${userToRecruit.user.username}`,
-        type: 0, // Specify the type correctly
+        type: 0,
         permissionOverwrites: [
           {
             id: interaction.guild.id,

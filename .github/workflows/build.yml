@@ -3,7 +3,7 @@ name: Build and Deploy
 on:
   push:
     branches:
-      - dev
+      - main
 
 jobs:
 
@@ -29,6 +29,7 @@ jobs:
         {
         "TOKEN": "${{ secrets.TOKEN }}",
         "CLIENT_ID": "${{ secrets.CLIENT_ID }}"
+        "ADMIN_ROLE_ID": "${{ secrets.ADMIN_ROLE_ID }}"
         }
         EOF
         else
@@ -53,9 +54,7 @@ jobs:
         context: ./
         file: Dockerfile
         push: true
-        tags: dfanso/discord-bot-boilerplate:latest
-        build-args: |
-          MONGO_URI=${{ secrets.MONGO_URI }}
+        tags: dfanso/ace-suo-bot:latest
           
       
   deploy:
@@ -71,7 +70,7 @@ jobs:
         VPS_PASSWORD: ${{ secrets.VPS_PASSWORD }}
       run: |
         sshpass -p $VPS_PASSWORD ssh -o StrictHostKeyChecking=no ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_IP }} '
-          docker pull dfanso/ethos-bot:latest &&
-          docker stop ethos-bot || true &&
-          docker rm ethos-bot || true &&
-          docker run -d --name ethos-bot -p 80:3000 dfanso/ethos-bot:latest'
+          docker pull dfanso/ace-suo-bot:latest &&
+          docker stop ace-suo-bot || true &&
+          docker rm ace-suo-bot || true &&
+          docker run -d --name ace-suo-bot -p 80:3000 dfanso/ace-suo-bot:latest'

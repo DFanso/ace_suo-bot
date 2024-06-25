@@ -15,10 +15,6 @@ RUN yarn install
 COPY . .
 
 
-ARG MONGO_URI
-
-ENV MONGO_URI=${MONGO_URI}
-
 # Build the application.
 RUN yarn build
 RUN yarn deploy
