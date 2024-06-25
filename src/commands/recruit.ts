@@ -1,8 +1,8 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
-import { CommandInteraction, GuildMember, TextChannel, PermissionFlagsBits } from 'discord.js';
+import { CommandInteraction, GuildMember, TextChannel, PermissionFlagsBits, CategoryChannel, ChannelType } from 'discord.js';
 import config from '../config.json';
 
-const { ADMIN_ROLE_ID } = config;
+const { ADMIN_ROLE_ID, RECRUITS_CATEGORY_ID } = config;
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -43,9 +43,17 @@ module.exports = {
 
       await userToRecruit.roles.add(role);
 
+      const category = interaction.guild.channels.cache.get(RECRUITS_CATEGORY_ID) as CategoryChannel;
+      
+      if (!category || category.type !== ChannelType.GuildCategory) {
+        await interaction.reply({ content: 'The "recruits" category does not exist or is not a category.', ephemeral: true });
+        return;
+      }
+
       const channel = await interaction.guild.channels.create({
         name: `recruit-${userToRecruit.user.username}`,
-        type: 0,
+        type: ChannelType.GuildText,
+        parent: category.id, // Set the parent category
         permissionOverwrites: [
           {
             id: interaction.guild.id,
